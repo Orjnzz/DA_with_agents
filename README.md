@@ -5,7 +5,7 @@ INSTRUCTIONS:
 ### 1. Clone project
 
 ```bash
-git clone https://github.com/Orjnzz/DA_with_mutli-agents.git
+git clone https://github.com/Orjnzz/DA_with_agents.git
 cd DA_with_mutli-agents
 ```
 
