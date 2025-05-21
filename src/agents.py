@@ -17,12 +17,12 @@ class DataDescriberAgent(Agent):
         self.prompts = load_prompts()
 
     def load_data(self, dataframe):
-        # string_data = '\n'.join([' | '.join(map(str, row)) for row in dataframe.values])
-        sample_data = dataframe.sample(n=min(16, len(dataframe))).to_dict(orient='records')
+        string_data = '\n'.join([' | '.join(map(str, row)) for row in dataframe.values])
+        # sample_data = dataframe.sample(n=min(16, len(dataframe))).to_dict(orient='records')
         data_desc = {
             "columns": list(dataframe.columns),
             "stats": dataframe.describe().to_dict(),
-            "dataframe": sample_data 
+            "dataframe": string_data  #string_data/sample_data
         }
         description = self.generate_description(data_desc)
         return data_desc, description
@@ -65,11 +65,12 @@ class ReasonerAgent(Agent):
         self.prompts = load_prompts()
 
     def infer_question(self, dataframe, summary, questions):
-        sample_data = dataframe.sample(n=min(16, len(dataframe))).to_dict(orient='records')
+        # sample_data = dataframe.sample(n=min(16, len(dataframe))).to_dict(orient='records')
+        string_data = '\n'.join([' | '.join(map(str, row)) for row in dataframe.values])
         prompt = self.prompts["reasoner"].format(
-            dataframe=sample_data,
+            dataframe=string_data,    #string_data/sample_data
             summary=summary,
-            questions=questions
+            questions=questions     
         )
         response = self.run(prompt).content
         return response
