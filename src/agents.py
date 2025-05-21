@@ -33,7 +33,6 @@ class DataDescriberAgent(Agent):
             stats=data_desc['stats'],
             dataframe=data_desc['dataframe']
         )
-        print("- Prompt for Data Description:", prompt)
         desc_response = self.run(prompt).content
         return desc_response
 
@@ -52,7 +51,6 @@ class HypothesisGeneratorAgent(Agent):
             summary=summary,
             description=description
         )
-        print("- Prompt for Hypothesis Generation:", prompt)
         response = self.run(prompt).content
         return response.split("\n")
 
@@ -73,7 +71,6 @@ class ReasonerAgent(Agent):
             summary=summary,
             questions=questions
         )
-        print("- Prompt for Reasoning:", prompt)
         response = self.run(prompt).content
         return response
     
@@ -92,7 +89,6 @@ class SummarizerAgent(Agent):
             questions=questions,
             answers=answers
         )
-        print("- Prompt for Summary Analysis:", prompt)
         response = self.run(prompt).content
         return response
 
@@ -113,6 +109,5 @@ class InsightAnalystAgent(Agent):
             answers=answers,
             summary_result=summary_result
         )
-        print("- Prompt for Insight Analysis:", prompt)
         response = self.run(prompt).content
         return response
