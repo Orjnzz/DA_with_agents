@@ -127,12 +127,12 @@ class ReasonerAgent(Agent):
         super().__init__(
             name=name,
             model=model,
-            role="You are an expert analytical reasoner, skilled at interpreting dataframes and their summaries to answer analytical questions. Your task is to provide detailed, evidence-based answers to questions by referencing specific data points, explaining trends, and offering meaningful insights based on the provided dataset and its analysis.",
+            role="You are an expert analytical reasoner, skilled at interpreting dataframes and their summaries to answer analytical questions. Your task is to provide concise, evidence-based answers to questions by referencing specific data points, explaining trends, and offering meaningful insights based on the provided dataset and its analysis.",
             instructions="""Analyze the provided dataset summary, statistical report, clustering report, and hypotheses to answer analytical questions. Address the following points concisely but thoroughly:
                             1. Data Interpretation: Interpret the dataset and reports to provide clear answers to the questions.
                             2. Evidence-Based Responses: Support your answers with specific data points or trends from the dataset.
                             3. Insightful Explanations: Offer meaningful insights and directly addresses the question based on the analysis.
-            Expected Output: Provide detailed, evidence-based answers to each hypothesis using the provided DataFrame and reports. Each answer should include hypothesis testing results and trend explanations.""",
+            Expected Output: Provide concise, evidence-based answers to each hypothesis using the provided DataFrame and reports. Each answer should include hypothesis testing results and trend explanations.""",
         )
 
 class DomainExpertAgent(Agent):
@@ -144,7 +144,7 @@ class DomainExpertAgent(Agent):
             instructions="""Using the dataset description, statistical report, clustering report, hypotheses, and answers, provide domain-specific context to the findings. Address the following points concisely but thoroughly:
                             1. Industry Alignment: Explain how the findings align with known trends or theories in the domain.
                             2. Practical Applications: Suggest practical implications of the insights (e.g., business strategies).
-            Expected Output: Providea summary paragraph about domain-specific context to the analytical findings, including industry alignment and practical applications.""",
+            Expected Output: Provide briefly a summary paragraph about domain-specific context to the analytical findings, including industry alignment and practical applications.""",
         )
 
 # CONSIDER FOR USING THIS AGENT
