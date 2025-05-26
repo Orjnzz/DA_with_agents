@@ -4,14 +4,16 @@ from agno.models.deepinfra import DeepInfra
 from agno.models.groq import Groq
 from agno.models.openai import OpenAIChat
 from agno.models.google import Gemini
-from src.agents import DataDescriberAgent, DataStatisticAgent, DataCluster
-from src.agents import HypothesisGeneratorAgent, ReasonerAgent, DomainExpertAgent, ValidatorAgent, IntegratorAgent, SynthesizerAgent
+from agents import DataDescriberAgent, DataStatisticAgent, DataCluster
+from agents import HypothesisGeneratorAgent, ReasonerAgent, DomainExpertAgent, ValidatorAgent, IntegratorAgent, SynthesizerAgent
 
 import pandas as pd
 import os
 
 from dotenv import load_dotenv
 load_dotenv()
+# GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+# model = Groq(id="llama3-8b-8192")
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 model = Gemini(id="gemini-2.0-flash")
 
@@ -54,17 +56,16 @@ insight_generation_team = Team(
         "1. Begin by tasking HypothesisGenerator with analyzing the DataFrame, basic statistics, and three reports to generate insightful hypotheses.",
         "2. Pass the generated hypotheses, along with initial DataFrame and reports, to Reasoner to provide thorough evidence-based answers.",
         "3. Send the Reasoner's answers, hypotheses, and initial data inputs to DomainExpert for detailed domain-specific context and insights.",
-        "4. Forward all outputs, including initial inputs and prior results, to Integrator to deliver a cohesive overview that supports high-level decision-making",
+        "4 Forward all outputs, including initial inputs and prior results, to Integrator to deliver a cohesive overview that supports high-level decision-making",
         "5. Finally, provide all previous outputs to Synthesizer to summarize findings into a comprehensive, actionable report.",
         "Ensure each agent's output, combined with initial inputs, is accurately passed to the next agent in the sequence."
     ],
-    success_criteria="The team has generated a comprehensive synthesis report with actionable insights. The report excludes trivial details, maintains a maximum length of 8 lines, and focuses on insights with real decision-making value.",
+    success_criteria="The team has generated a comprehensive synthesis report with actionable insights. The final summary excludes trivial details, maintains a maximum length of 6 lines, and focuses on insights with real decision-making value.",
     markdown=True,
     show_tool_calls=False,
     show_members_responses=True,
     enable_agentic_context=True,
     add_datetime_to_instructions=True,
-    expected_output="Return the Synthesize Agent Response"
     # debug_mode=True,
 )
 
@@ -75,7 +76,7 @@ def run_insight_generation(inf_df, description_report, statistic_report, cluster
                 description report: {description_report},
                 statistical report: {statistic_report}, 
                 and clustering report: {cluster_report} to generate hypotheses, reason through them, and synthesize a comprehensive report with actionable insights."""
-    insights_generation_debug = insight_generation_team.print_response(
+    insight_generation_team.print_response(
         task,
         stream=True,
         stream_intermediate_steps=True
